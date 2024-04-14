@@ -12,7 +12,6 @@ export default function AccountRoutes(app) {
         console.log("REGISTERING ATTEMPT");
         const account = await dao.findAccountByUsername(req.body.account);
         if (account) {
-            console.log("YOU FUCKED UP IDIOT");
             res.status(404).json(
                 { message: "Username already taken"}
             );
