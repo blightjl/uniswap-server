@@ -5,7 +5,7 @@ const accountSchema = new mongoose.Schema({
     password: { type: String, requried: true },
     accountType: {
         type: String,
-        enum: ["BUYER", "SELLER", "ADMIN"],
+        enum: ["BUYER", "SELLER", "ADMIN", "USER"],
         default: "BUYER",
     },
 }, { collection: "accounts" });

@@ -10,30 +10,34 @@ function AccountRoutes(app) {
 
     const register = async (req, res) => {
         console.log("REGISTERING ATTEMPT");
+        console.log(req.body)
         const account = await dao.findAccountByUsername(req.body.username);
         if (account) {
             res.status(404).json(
                 { message: "Username already taken"}
             );
         }
-        // const currentAccount = await dao.createAccount(req.body);
-        // req.session["currentAccount"] = currentAccount;
-        currentAccount = await dao.createAccount(req.body);
+        const currentAccount = await dao.createAccount(req.body);
+        req.session["currentAccount"] = currentAccount;
         res.json(currentAccount);
     }
 
     const login = async (req, res) => {
-        console.log("LOGING IN");
-        // const { username, password } = req.body;
-        // const currentAccount = await dao.findAccountByCredentials(username, password);
-        // if (currentAccount) {
-        //     req.session["currentAccount"] = currentAccount;
-        //     res.json(currentAccount);
-        //     console.log("LOGGED IN!");
-        // } else {
-        //     // res.sendStatus(404);
-        //     console.log("FAILED TO LOG IN!");
-        // }
+        console.log("LOGGING IN");
+        console.log(req.body)
+        const { username, password } = req.body;
+        console.log(username)
+        console.log(password)
+        const currentAccount = await dao.findAccountByCredentials(username, password);
+        console.log(currentAccount)
+        if (currentAccount) {
+            req.session["currentAccount"] = currentAccount;
+            res.json(currentAccount);
+            console.log("LOGGED IN!");
+        } else {
+            res.sendStatus(404);
+            console.log("FAILED TO LOG IN!");
+        }
     };
 
     const home = async (req, res) => {
