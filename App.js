@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import AccountRoutes from "./Database/Account/routes.js";
 
-mongoose.connect("mongodb://127.0.0.1:27017/uniswap");
+
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/uniswap"
+mongoose.connect(CONNECTION_STRING);
 const app = express();
 // app.use(cors({
 //     credentials: true,
