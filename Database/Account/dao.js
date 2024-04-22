@@ -7,3 +7,4 @@ export const createAccount = (account) => {
 export const findAllAccounts = () => model.find();
 export const findAccountByUsername = (username) => model.findOne({ username: username });
 export const findAccountByCredentials = (username, password) => model.findOne({ username, password });
+export const findUserById = (userId) => model.findById(userId);
