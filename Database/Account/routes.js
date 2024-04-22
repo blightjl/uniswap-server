@@ -33,6 +33,7 @@ function AccountRoutes(app) {
         if (currentAccount) {
             req.session["currentAccount"] = currentAccount;
             res.json(currentAccount);
+            console.log(currentAccount)
             console.log("LOGGED IN!");
         } else {
             res.sendStatus(404);
@@ -62,7 +63,7 @@ function AccountRoutes(app) {
     app.post("/api/accounts", createAccount);
     app.post("/api/accounts/register", register);
     app.post("/api/accounts/login", login);
-    app.post("/api/accounts/home", home);
+    app.get("/api/accounts/home", home);
     app.get("/api/accounts/:userId", findUserById);
 }
 
