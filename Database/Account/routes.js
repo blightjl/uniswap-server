@@ -53,11 +53,17 @@ function AccountRoutes(app) {
         res.json(accounts);
     };
 
+    const findUserById = async (req, res) => {
+        const user = await dao.findUserById(req.userId);
+        res.json(user);
+    }
+
     app.get("/api/accounts", findAllAccounts);
     app.post("/api/accounts", createAccount);
     app.post("/api/accounts/register", register);
     app.post("/api/accounts/login", login);
     app.post("/api/accounts/home", home);
+    app.get("/api/accounts/:userId", findUserById);
 }
 
 export default AccountRoutes;
