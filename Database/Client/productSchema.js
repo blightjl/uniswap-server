@@ -5,7 +5,6 @@ const productCommentSchema = new mongoose.Schema({
   userID: Number,
   userName: String,
   description: String,
-  likes: Number,
 });
 
 const productSchema = new mongoose.Schema({

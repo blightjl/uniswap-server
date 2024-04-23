@@ -58,6 +58,11 @@ function AccountRoutes(app) {
         res.json(user);
     }
 
+    const findUserByName = async (req, res) => {
+        const user = await dao.findAccountByUsername(req.userName);
+        res.json(user);
+    }
+
     const addProduct = async (req, res) => {
         const userId = req.userId;
         const product = req.body;
@@ -72,6 +77,7 @@ function AccountRoutes(app) {
     app.post("/api/accounts/login", login);
     app.post("/api/accounts/home", home);
     app.get("/api/accounts/:userId", findUserById);
+    app.get("/api/accounts/name/:userName", findUserByName);
     app.put("/api/addProduct/:userId", addProduct);
 }
 
