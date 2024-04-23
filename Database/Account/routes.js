@@ -40,6 +40,11 @@ function AccountRoutes(app) {
         }
     };
 
+    const logout = async (req, res) => {
+        req.session["currentAccount"] = '';
+        res.sendStatus(200);
+    }
+
     const home = async (req, res) => {
         const currentAccount = req.session["currentAccount"];
         if (!currentAccount) {
@@ -75,6 +80,7 @@ function AccountRoutes(app) {
     app.post("/api/accounts", createAccount);
     app.post("/api/accounts/register", register);
     app.post("/api/accounts/login", login);
+    app.post("/api/accounts/logout", logout);
     app.post("/api/accounts/home", home);
     app.get("/api/accounts/:userId", findUserById);
     app.get("/api/accounts/name/:userName", findUserByName);
