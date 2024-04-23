@@ -40,6 +40,11 @@ function AccountRoutes(app) {
         }
     };
 
+    const logout = async (req, res) => {
+        req.session["currentAccount"] = '';
+        res.sendStatus(200);
+    }
+
     const home = async (req, res) => {
         const currentAccount = req.session["currentAccount"];
         if (!currentAccount) {
@@ -58,12 +63,28 @@ function AccountRoutes(app) {
         res.json(user);
     }
 
+    const findUserByName = async (req, res) => {
+        const user = await dao.findAccountByUsername(req.userName);
+        res.json(user);
+    }
+
+    const addProduct = async (req, res) => {
+        const userId = req.userId;
+        const product = req.body;
+
+        const profile = await dao.addProduct(userId, product);
+        res.json(profile);
+    }
+
     app.get("/api/accounts", findAllAccounts);
     app.post("/api/accounts", createAccount);
     app.post("/api/accounts/register", register);
     app.post("/api/accounts/login", login);
+    app.post("/api/accounts/logout", logout);
     app.post("/api/accounts/home", home);
     app.get("/api/accounts/:userId", findUserById);
+    app.get("/api/accounts/name/:userName", findUserByName);
+    app.put("/api/addProduct/:userId", addProduct);
 }
 
 export default AccountRoutes;

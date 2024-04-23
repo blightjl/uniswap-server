@@ -1,21 +1,19 @@
 import mongoose, { Mongoose } from "mongoose";
-import ProductType from "../Types/ProductType";
 
 const productCommentSchema = new mongoose.Schema({
-  commentID: number,
+  commentID: Number,
   userID: Number,
   userName: String,
   description: String,
-  likes: Number,
 });
 
 const productSchema = new mongoose.Schema({
-    image: any,
+    image: Image,
     description_long: String,
     description_short: String,
     title: {type: String, unique: true},
     price: String,
-    type: ProductType,
+    type: 'String',
     comments: [productCommentSchema],
   },
   { collection: "products" }
