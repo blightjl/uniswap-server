@@ -58,11 +58,11 @@ function AccountRoutes(app) {
         res.json(user);
     }
 
-    const createBookmarkedProduct = async (req, res) => {
+    const addProduct = async (req, res) => {
         const userId = req.userId;
         const product = req.body;
 
-        const profile = await dao.createBookmarkedProduct(userId, product);
+        const profile = await dao.addProduct(userId, product);
         res.json(profile);
     }
 
@@ -72,7 +72,7 @@ function AccountRoutes(app) {
     app.post("/api/accounts/login", login);
     app.post("/api/accounts/home", home);
     app.get("/api/accounts/:userId", findUserById);
-    app.put("/api/bookmark/:userId", createBookmarkedProduct);
+    app.put("/api/addProduct/:userId", addProduct);
 }
 
 export default AccountRoutes;
