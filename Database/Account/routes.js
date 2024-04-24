@@ -9,8 +9,6 @@ function AccountRoutes(app) {
     };
 
     const register = async (req, res) => {
-        console.log("REGISTERING ATTEMPT");
-        console.log(req.body)
         const account = await dao.findAccountByUsername(req.body.username);
         if (account) {
             res.status(404).json(
@@ -23,16 +21,12 @@ function AccountRoutes(app) {
     }
 
     const login = async (req, res) => {
-        console.log("LOGGING IN");
-        console.log(req.body)
         const { username, password } = req.body;
-        console.log(username)
-        console.log(password)
         const currentAccount = await dao.findAccountByCredentials(username, password);
         console.log(currentAccount)
         if (currentAccount) {
             req.session["currentAccount"] = currentAccount;
-            res.json(currentAccount);
+            res.json(req.session["currentAccount"]);
             console.log("LOGGED IN!");
         } else {
             res.sendStatus(404);
@@ -47,21 +41,8 @@ function AccountRoutes(app) {
 
     const home = async (req, res) => {
         const currentAccount = req.session["currentAccount"];
-        console.log("PRINTING REQ SESSION")
-        console.log(req.session)
         if (!currentAccount) {
-            const guestAccount = {
-                username: 'Guest',
-                password: '',
-                name: "Guest",
-                profilePicture: undefined,
-                products: [],
-                bio: "I'm a guest",
-                profileType: 'SELLER',
-                _id: 1,
-              }
-            console.log(currentAccount)
-            res.json(guestAccount)
+            res.sendStatus(404);
         } else {
             res.json(currentAccount);
         }
@@ -73,7 +54,7 @@ function AccountRoutes(app) {
     };
 
     const findUserById = async (req, res) => {
-        const user = await dao.findUserById(req.userId);
+        const user = await dao.findUserById(req.params.userId);
         res.json(user);
     }
 
@@ -85,9 +66,14 @@ function AccountRoutes(app) {
     const addProduct = async (req, res) => {
         const userId = req.userId;
         const product = req.body;
-
         const profile = await dao.addProduct(userId, product);
         res.json(profile);
+    }
+
+    const updateAccount = async (req, res) => {
+        const account = req.body;
+        const newAccount = await dao.updateProduct(account);
+        res.status(200);
     }
 
     app.get("/api/accounts", findAllAccounts);
@@ -98,7 +84,8 @@ function AccountRoutes(app) {
     app.post("/api/accounts/home", home);
     app.get("/api/accounts/:userId", findUserById);
     app.get("/api/accounts/name/:userName", findUserByName);
-    app.put("/api/addProduct/:userId", addProduct);
+    app.put("/api/accounts/addProduct/:userId", addProduct);
+    app.put("/api/accounts/update", updateAccount);
 }
 
 export default AccountRoutes;

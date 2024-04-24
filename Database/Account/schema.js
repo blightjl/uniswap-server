@@ -20,15 +20,15 @@ const productSchema = new mongoose.Schema({
 
 const accountSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String, requried: true },
+  password: { type: String, required: true },
   accountType: {
       type: String,
       enum: ["BUYER", "SELLER", "ADMIN", "USER"],
       default: "BUYER",
   },
   name: String,
-  bio: String,
-  products: productSchema,
+  bio: { type: String, default: '' },
+  products: [productSchema],
   profilePicture: String,
   }, 
   { collection: "accounts" }
