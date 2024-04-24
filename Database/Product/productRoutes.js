@@ -23,6 +23,7 @@ export default function UserRoutes(app) {
 
   const updateProduct = async (req, res) => {
     const { productId } = req.params;
+    console.log(req.body)
     const status = await dao.updateProduct(productId, req.body);
     res.json(status);
   };

@@ -14,3 +14,4 @@ export const addProduct = (userID, product) => {
         model.updateOne({ _id: userID }, { $set: { products: [...account.products, product] } })
     }
 };
+export const updateProduct = (account) => model.updateOne({ _id: account._id }, { $set: { name: account.name, bio: account.bio }})
