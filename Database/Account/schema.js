@@ -9,7 +9,7 @@ const productCommentSchema = new mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  image: Image,
+  image: String,
   description_long: String,
   description_short: String,
   title: {type: String, unique: true},
@@ -29,7 +29,7 @@ const accountSchema = new mongoose.Schema({
   name: String,
   bio: String,
   products: productSchema,
-  profilePicture: Image,
+  profilePicture: String,
   }, 
   { collection: "accounts" }
 );
