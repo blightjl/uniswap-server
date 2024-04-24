@@ -47,10 +47,24 @@ function AccountRoutes(app) {
 
     const home = async (req, res) => {
         const currentAccount = req.session["currentAccount"];
+        console.log("PRINTING REQ SESSION")
+        console.log(req.session)
         if (!currentAccount) {
-            res.sendStatus(404);
+            const guestAccount = {
+                username: 'Guest',
+                password: '',
+                name: "Guest",
+                profilePicture: undefined,
+                products: [],
+                bio: "I'm a guest",
+                profileType: 'SELLER',
+                _id: 1,
+              }
+            console.log(currentAccount)
+            res.json(guestAccount)
+        } else {
+            res.json(currentAccount);
         }
-        res.json(currentAccount);
     };
 
     const findAllAccounts = async (req, res) => {

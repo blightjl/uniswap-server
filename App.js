@@ -12,10 +12,9 @@ const app = express();
 //     credentials: true,
 //     origin: process.env.FRONTEND_URL
 // }));
-// app.use(cors());
 app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
+    origin: 'http://localhost:3000',
+    credentials: true 
 }));
 const sessionOptions = {
     secret: "secret",
