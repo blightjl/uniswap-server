@@ -2,7 +2,7 @@ import mongoose, { Mongoose } from "mongoose";
 
 const productCommentSchema = new mongoose.Schema({
   commentID: Number,
-  userID: Number,
+  userID: String,
   userName: String,
   description: String,
 });

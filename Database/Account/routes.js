@@ -59,7 +59,7 @@ function AccountRoutes(app) {
     }
 
     const findUserByName = async (req, res) => {
-        const user = await dao.findAccountByUsername(req.userName);
+        const user = await dao.findAccountByUsername(req.params.userName);
         res.json(user);
     }
 
